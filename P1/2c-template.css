@@ -8,6 +8,7 @@
 
 body {
   background-image: url('fondo.png');
+  background-repeat: no-repeat;
   
 }
 
