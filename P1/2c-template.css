@@ -7,9 +7,10 @@
   
 
 body {
-  background-image:'fondo.png';
-  opacity: 0.3;
+  background-image: url('fondo.png');
+  
 }
+
 /* Crear columnas de ancho diferente que se colocan una a continuación de la otra */
 .columna {
 float: left;
@@ -37,7 +38,7 @@ clear: both;
 }
 
 #c2 {
-    background-color:#bbb;
+    background-color: whitesmoke;
 }
 
 /* estilos para imágenes https://www.w3schools.com/css/css3_images.asp */
