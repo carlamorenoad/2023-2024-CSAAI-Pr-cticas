@@ -57,6 +57,10 @@ body {
   background-repeat: no-repeat;  
   }
 
+.about {
+  background-image: url('FondoPF.png');
+}
+
  @font-face {
     font-family: 'BankGothicBold';
     src: url('BankGothicBold.ttf') format('truetype');
@@ -124,32 +128,50 @@ h2{
 #TituloHabilidades{
   display: flex;
   justify-content: center;
-  margin: auto;
+  margin: 10px;
   font-family:'BankGothicBold';
   font-size:xx-large;
-  background-color:rgba(161, 43, 43, 0.6);
-  border: black 8px outset;
+  background-color:rgba(160, 43, 43, 0.5);
   border-radius: 5px;
-  padding: 10px;
-  margin: 10px;
+  padding: 20px;
   margin-top: 20px;
+  border: solid;
+  text-align: center;
+  padding: 10px;
+  box-shadow: red 5px 5px 40px;
+  text-shadow: 4px 4px 5px rgba(245, 245, 245, 0.6);
 }
 
+ol {
+  width: 95%;
+  height: 100%;
+  margin: 25px;
+  padding: 20px;
+  border: solid;
+  border-color: rgba(3, 3, 3);
+  border-radius: 10px;
+  font-family:'Times New Roman', Times, serif;
+  background-color:rgba(161, 154, 154, 0.411);
+}
 .Habilidad{
-background-color: rgba(236, 228, 228, 0.5);
+background-color: rgba(56, 55, 55, 0.541);
 border:solid;
 border-radius: 5px;
 padding: 10px;
 font-weight:bold;
+text-shadow: 4px 4px 5px rgba(0, 0, 0, 0.753) ;
+box-shadow: 14px 14px 20px;
 }
 
 .p{
-color: rgb(15, 15, 15);
-background-color: rgba(221, 134, 53, 0.658);
+display:flex;
+color: rgb(0, 0, 0);
+background-color: rgba(223, 212, 212, 0.466);
 font-size: medium;
 border: solid;
 border-radius: 5px;
 padding: 10px;
+font-weight: 300;
 }
 
 .url {
