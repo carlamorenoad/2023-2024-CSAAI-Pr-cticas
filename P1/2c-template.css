@@ -86,7 +86,7 @@ body {
   }
 
 .Tizq {
-  width: auto;
+  width: 100%;
   margin: auto;
   font-family:'BankGothicBold';
   padding: 10px;
@@ -237,8 +237,7 @@ img {
 .iresponsive {
     padding: 0 6px;
     float: left;
-    width: auto;
-    text-align: center;
+    width: 50%;
   }
 
 /* Responsive layout - cuando el ancho de pantalla es menor a 600px, muestra las columnas apiladas. */
