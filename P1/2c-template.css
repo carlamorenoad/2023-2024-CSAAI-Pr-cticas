@@ -73,7 +73,7 @@ body {
 
 .about {
   background-image: url('FondoPF.png');
-  background-size: cover;
+  background-attachment: fixed;
 }
 
  @font-face {
@@ -86,7 +86,6 @@ body {
   }
 
 .Tizq {
-  width: 100%;
   margin: auto;
   font-family:'BankGothicBold';
   padding: 10px;
@@ -237,7 +236,7 @@ img {
 .iresponsive {
     padding: 0 6px;
     float: left;
-    width: 50%;
+    width: auto;
   }
 
 /* Responsive layout - cuando el ancho de pantalla es menor a 600px, muestra las columnas apiladas. */
