@@ -27,8 +27,9 @@ width: 75%;
   clear: both;
 }
 
+/*Columna Izquierda index.html */
 #c1 {
-  width: 26%;
+  width: 25%;
   height: 100%;
   margin: 10px;
   border: solid;
@@ -38,6 +39,7 @@ width: 75%;
   font-family: 'Times New Roman', Times, serif;
 }
 
+/* Columna derecha index.html */
 #c2 {
   float:right;
   width: 70%;
@@ -50,6 +52,8 @@ width: 75%;
   font-family:'Times New Roman', Times, serif;
   background-color:rgba(15, 15, 15, 0.5);
 }
+
+/*  Columna izquierda about.html */
 #c3{
   width: 50%;
   height: 100%;
@@ -57,6 +61,7 @@ width: 75%;
   font-family: 'Times New Roman', Times, serif;
 }
 
+/* Columna derecha about.html */
 #c4{
   float:right;
   width: 40%;
@@ -65,26 +70,26 @@ width: 75%;
   padding: 10px;
 }
 
+/* Cuerpo index.html */
 body {
   background-image: url('fondo.jpg');
   background-size: cover;
   background-repeat: no-repeat;  
   }
 
+/* Cuerpo about.html */
 .about {
   background-image: url('FondoPF.png');
   background-attachment: fixed;
 }
 
+/* Tipo de fuente */
  @font-face {
     font-family: 'BankGothicBold';
     src: url('BankGothicBold.ttf') format('truetype');
   }
 
-.d1 {
-  margin: 10px;
-  }
-
+/* Titulos columna izquierda index.html*/
 .Tizq {
   margin: auto;
   font-family:'BankGothicBold';
@@ -92,11 +97,12 @@ body {
   border: solid;
   border-color: rgb(10, 10, 10);
   border-radius: 5px;
-  outline-offset: -3px;
   text-align: center;
   background-color: rgb(161, 43, 43);
   box-shadow: 5px 5px 40px;
+  text-shadow: rgba(0, 0, 0, 0.349);
 }
+
 
 h1{
   font-family: 'BankGothicBold';
@@ -121,6 +127,8 @@ h2{
   box-shadow: black 5px 5px 10px;
   text-shadow: 4px 4px 5px rgba(0, 0, 0, 0.85);
 }
+
+/* Info columna izquierda index.html*/
 .info1{
   border: solid;
   border-radius: 5px;
@@ -130,6 +138,8 @@ h2{
   margin: 10px;
   box-shadow: black 5px 5px 10px;
 }
+
+/* Info columna derecha index.html */
 .info2{
   border: solid;
   border-radius: 5px;
@@ -168,6 +178,7 @@ ol {
   font-family:'Times New Roman', Times, serif;
   background-color:rgba(161, 154, 154, 0.411);
 }
+
 .li{
 background-color: rgba(56, 55, 55, 0.541);
 border:solid;
@@ -213,8 +224,8 @@ font-weight: 300;
 /* posicionamiento de imágenes https://www.w3schools.com/css/css_positioning.asp */
 
 #imghtml {
-  height: 260px;
-  width: 260px;
+  height: 230px;
+  width: 230px;
   border-radius: 50%;
   margin: 14px;
   border: 4px solid;
