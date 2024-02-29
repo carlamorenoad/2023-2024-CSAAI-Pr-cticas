@@ -61,19 +61,18 @@ width: 50%;
 
 /*  Columna izquierda about.html */
 #c3{
-  /*width: 50%;*/
   height: 100%;
   margin: 10px;
+  padding: 25px;
   font-family: 'Times New Roman', Times, serif;
 }
 
 /* Columna derecha about.html */
 #c4{
-  /*width: 40%;*/
   height: 100%;
   margin: 10px;
-  padding: 40px;
-  text-align: center;
+  padding: 30px;
+  
 }
 
 /* Cuerpo index.html */
@@ -157,15 +156,13 @@ h2{
 }
 
 #TituloHabilidades{
-  display: flex;
-  justify-content: center;
   margin: 10px;
   font-family:'BankGothicBold';
   font-size:xx-large;
   background-color:rgba(160, 43, 43, 0.5);
   border-radius: 5px;
   padding: 20px;
-  margin-top: 20px;
+  /*margin-top: 20px;*/
   border: solid;
   text-align: center;
   padding: 10px;
