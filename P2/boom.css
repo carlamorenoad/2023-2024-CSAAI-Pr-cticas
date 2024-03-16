@@ -10,21 +10,27 @@ body {
 
 h1 { 
     text-align: center;
-    color: rgb(231, 78, 17);
-    text-shadow: 5px 5px rgb(160, 13, 13);
-    font-size: 60px;
-    
+    color: rgb(248, 194, 18);
+    text-shadow: 3px 3px 1px rgb(231, 78, 17), 5px 5px 2px rgb(247, 2, 2) ;
+    font-size: 60px; 
 }
 
 button {
-    background-color: white;
+    background-color: rgb(206, 64, 8);
     padding: 20px;
-    border-radius: 10 px;
-    font-size: 20px;
+    border:solid rgb(247, 112, 2);
+    border-radius: 10px;
     margin-right: 5px;
     margin-left: 5px;
+    box-shadow: 10px 10px 10px rgb(196, 49, 4),
+    -10px -10px 5px rgb(177, 54, 5) inset;
+    text-align: left; 
+    font-family: Comic Sans MS; 
+    font-weight:bold; 
+    font-size: 30px; 
+    color: #ece4dd; 
+    text-shadow: -1px 0 #f59505, 0 1px #f59505, 1px 0 #f59505, 0 -1px #f59505, -2px 2px 0 #f59505, 2px 2px 0 #f59505, 1px 1px #f59505, 2px 2px #f59505, 3px 3px #f59505, 4px 4px #f59505, 5px 5px #f59505; 
 }
-
 .clavesecreta {
     text-align: center;
     margin: 10px;
@@ -39,10 +45,14 @@ button {
     padding: 20px;
     text-align: center;
     font-size: 30px;
-    background-color: rgb(128, 73, 11);
+    background-color: rgb(226, 218, 208);
     border-radius: 10px;
-    box-shadow: 10px 10px rgba(248, 123, 6, 0.685);
+    box-shadow:
+    -10px -10px 5px rgb(245, 139, 90),
+    10px 10px 10px rgb(255, 94, 0);
+    border: solid rgb(255, 123, 0);
 }
+
 
 .numeros {
     margin-left: 10px;
@@ -51,13 +61,19 @@ button {
 }
 
 #display{
-    text-align: center;
-    display: flex;
+    align-content: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
     padding: 20px;
-    background-color: white;
+    background-color: rgba(248, 194, 18, 0.849);
     border-radius: 10px;
-    font-size: 25px;
-    margin: 80px;
-    margin-top: 4px;
-    
+    font-size: 30px;
+    border: solid rgb(247, 190, 5);
+    text-shadow: #f5f1ee;
+    color: rgb(235, 226, 198);
+    font-weight: 800;
+    box-shadow: 5px 10px 10px rgb(201, 155, 6);
+  
 }

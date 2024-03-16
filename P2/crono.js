@@ -29,4 +29,5 @@ gui.stop.onclick = () => {
 gui.reset.onclick = () => {
     console.log("Reset!");
     crono.reset();
+
 }

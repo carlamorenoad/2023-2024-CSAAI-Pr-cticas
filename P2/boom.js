@@ -18,25 +18,23 @@ for (let j = 0; j < secretkey.length; j++) { //Se imprime en la consola el numer
   console.log(j + ' Secret Key '  + secretkey[j])
 }
 
-//-- Elementos de la interfaz del juego
-
-clave1 = document.getElementById("clave1");
-clave2 = document.getElementById("clave2");
-clave3 = document.getElementById("clave3");
-clave4 = document.getElementById("clave4");
-start = document.getElementById("start");
-display = document.getElementById("display");
-
+//Elementos de la interfaz del juego
+const elemento = {
+  clave1: document.getElementById("clave1"),
+  clave2: document.getElementById("clave2"),
+  clave3: document.getElementById("clave3"),
+  clave4: document.getElementById("clave4"),
+  start: document.getElementById("start"),
+  display: document.getElementById("display"),
+}
 clave1.innerHTML = "*";
-clave1.style.color = "red";
-
 clave2.innerHTML = "*";
-clave2.style.color = "red";
-
 clave3.innerHTML = "*";
-clave3.style.color = "red";
-
 clave4.innerHTML = "*";
+
+clave1.style.color = "red";
+clave2.style.color = "red";
+clave3.style.color = "red";
 clave4.style.color = "red";
 
 //Estados del Juego
@@ -48,55 +46,92 @@ const ESTADO = {
 
 let estado = ESTADO.INIT;
 
-function juego(digito) {
+function juego(ev) {
   if (estado == ESTADO.INIT){
 
     estado = ESTADO.ADIVINANDO;
-    console.log("El juego ha comenzado");
+    console.log("El juego ha comenzado");  
     display.innerHTML = crono.start();
     
-  }
+  } else {
 
-  if (estado == ESTADO.ADIVINANDO){
-      if (secretkey[0] == digito) {
+   if(estado == ESTADO.ADIVINANDO){
+      if (secretkey[0] == ev.target.value) {
 
-        clave1.innerHTML = digito;
+        elemento.clave1.innerHTML = secretkey[0];
         clave1.style.color = "green";
 
-      } else if (secretkey[1] == digito) {
+      } 
+      if (secretkey[1] == ev.target.value) {
 
-        clave2.innerHTML = digito;
+        elemento.clave2.innerHTML = secretkey[1];
         clave2.style.color = "green";
           
-      } else if (secretkey[2] == digito) {
+      } 
+      if (secretkey[2] == ev.target.value) {
 
-        clave3.innerHTML = digito;
+        elemento.clave3.innerHTML = secretkey[2];
         clave3.style.color = "green";
 
-      } else if (secretkey[3] == digito) {
+      }
+      if (secretkey[3] == ev.target.value) {
 
-        clave4.innerHTML = digito;
+        elemento.clave4.innerHTML = secretkey[3];
         clave4.style.color = "green";
-      }     
-  }
+      } 
 
-  if (clave1.innerHTML === secretkey[0] &&
-    clave2.innerHTML === secretkey[1] &&
-    clave3.innerHTML === secretkey[2] &&
-    clave4.innerHTML === secretkey[3]) {
-  estado = ESTADO.CORRECTO;
-  console.log("¡Has adivinado la clave!");
-  // Detener el cronómetro (debes implementar esta parte)
-  crono.stop();
+      if (elemento.clave1.innerHTML === secretkey[0] &&
+      elemento.clave2.innerHTML === secretkey[1] &&
+      elemento.clave3.innerHTML === secretkey[2] &&
+      elemento.clave4.innerHTML === secretkey[3]) {
+      console.log("¡Has adivinado la clave!");
+      crono.stop();
+      }
+    }
+  }
 }
-}
+
+
+
+
+
+
+
+
 
 digitos = document.getElementsByClassName("digito")
 
 for (let boton of digitos) {
 
-  boton.onclick =  function() {
-    juego(boton.innerHTML);
+  boton.onclick = (ev) => {
+    juego(ev);
   }
 }
+
+reset.onclick = () => {
+  // Generar una nueva clave
+  console.log("Nueva clave")
+  secretkey.length = 0; // Vaciar el array de la clave actual
+  for (let i = 0; i < 4; i++) {
+    let rnum = getRandomInt(10);
+    secretkey.push(rnum.toString());
+    console.log(i + ' Secret Key '  + secretkey[i]);
+  }
+
+  crono.reset();
+
+  // Reiniciar la interfaz
+  elemento.clave1.innerHTML = "*";
+  elemento.clave2.innerHTML = "*";
+  elemento.clave3.innerHTML = "*";
+  elemento.clave4.innerHTML = "*";
+  elemento.clave1.style.color = "red";
+  elemento.clave2.style.color = "red";
+  elemento.clave3.style.color = "red";
+  elemento.clave4.style.color = "red";
+  
+  // Volver al estado inicial
+  estado = ESTADO.INIT;
+};
+
 
