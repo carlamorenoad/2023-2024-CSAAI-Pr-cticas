@@ -25,6 +25,7 @@ const elemento = {
   clave3: document.getElementById("clave3"),
   clave4: document.getElementById("clave4"),
   start: document.getElementById("start"),
+  stop: document.getElementById("stop"),
   display: document.getElementById("display"),
 }
 clave1.innerHTML = "*";
@@ -78,7 +79,7 @@ function juego(ev) {
 
         elemento.clave4.innerHTML = secretkey[3];
         clave4.style.color = "green";
-      } 
+      }
 
       if (elemento.clave1.innerHTML === secretkey[0] &&
       elemento.clave2.innerHTML === secretkey[1] &&
@@ -87,17 +88,9 @@ function juego(ev) {
       console.log("¡Has adivinado la clave!");
       crono.stop();
       }
-    }
+  }
   }
 }
-
-
-
-
-
-
-
-
 
 digitos = document.getElementsByClassName("digito")
 
@@ -107,31 +100,5 @@ for (let boton of digitos) {
     juego(ev);
   }
 }
-
-reset.onclick = () => {
-  // Generar una nueva clave
-  console.log("Nueva clave")
-  secretkey.length = 0; // Vaciar el array de la clave actual
-  for (let i = 0; i < 4; i++) {
-    let rnum = getRandomInt(10);
-    secretkey.push(rnum.toString());
-    console.log(i + ' Secret Key '  + secretkey[i]);
-  }
-
-  crono.reset();
-
-  // Reiniciar la interfaz
-  elemento.clave1.innerHTML = "*";
-  elemento.clave2.innerHTML = "*";
-  elemento.clave3.innerHTML = "*";
-  elemento.clave4.innerHTML = "*";
-  elemento.clave1.style.color = "red";
-  elemento.clave2.style.color = "red";
-  elemento.clave3.style.color = "red";
-  elemento.clave4.style.color = "red";
-  
-  // Volver al estado inicial
-  estado = ESTADO.INIT;
-};
 
 

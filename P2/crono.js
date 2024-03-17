@@ -28,6 +28,28 @@ gui.stop.onclick = () => {
 //-- Reset del cronómetro
 gui.reset.onclick = () => {
     console.log("Reset!");
+    // Generar una nueva clave
+    console.log("Nueva clave")
+    secretkey.length = 0; // Vaciar el array de la clave actual
+    for (let i = 0; i < 4; i++) {
+        let rnum = getRandomInt(10);
+        secretkey.push(rnum.toString());
+        console.log(i + ' Secret Key '  + secretkey[i]);
+    }
+
+    crono.stop();
     crono.reset();
 
-}
+    // Reiniciar la interfaz
+    elemento.clave1.innerHTML = "*";
+    elemento.clave2.innerHTML = "*";
+    elemento.clave3.innerHTML = "*";
+    elemento.clave4.innerHTML = "*";
+    elemento.clave1.style.color = "red";
+    elemento.clave2.style.color = "red";
+    elemento.clave3.style.color = "red";
+    elemento.clave4.style.color = "red";
+  
+    // Volver al estado inicial
+    estado = ESTADO.INIT;
+};
