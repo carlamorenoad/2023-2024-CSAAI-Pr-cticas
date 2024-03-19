@@ -56,39 +56,41 @@ function juego(ev) {
     
   } else {
 
-   if(estado == ESTADO.ADIVINANDO){
+  if(estado == ESTADO.ADIVINANDO){
       if (secretkey[0] == ev.target.value) {
 
         elemento.clave1.innerHTML = secretkey[0];
         clave1.style.color = "green";
+        secretkey[0]= "adivinado"
 
-      } 
-      if (secretkey[1] == ev.target.value) {
+      }
+      else if (secretkey[1] == ev.target.value) {
 
         elemento.clave2.innerHTML = secretkey[1];
         clave2.style.color = "green";
-          
+        secretkey[1]= "adivinado"
       } 
-      if (secretkey[2] == ev.target.value) {
+      else if (secretkey[2] == ev.target.value) {
 
         elemento.clave3.innerHTML = secretkey[2];
         clave3.style.color = "green";
-
+        secretkey[2]= "adivinado"
       }
-      if (secretkey[3] == ev.target.value) {
+      else if (secretkey[3] == ev.target.value) {
 
         elemento.clave4.innerHTML = secretkey[3];
         clave4.style.color = "green";
+        secretkey[3]= "adivinado"
       }
 
-      if (elemento.clave1.innerHTML === secretkey[0] &&
-      elemento.clave2.innerHTML === secretkey[1] &&
-      elemento.clave3.innerHTML === secretkey[2] &&
-      elemento.clave4.innerHTML === secretkey[3]) {
+      if ("adivinado" === secretkey[0] &&
+      "adivinado" === secretkey[1] &&
+      "adivinado" === secretkey[2] &&
+      "adivinado" === secretkey[3]) {
       console.log("¡Has adivinado la clave!");
       crono.stop();
       }
-  }
+    }
   }
 }
 
