@@ -1,60 +1,141 @@
 console.log("Ejecutando JS...");
 
-const canvas = document.getElementById("canvas");
+const canvas = document.getElementById("ctiro");
+
+//-- Acceder al botón de disparo
+const Disparar = document.getElementById("Disparar");
+
+//-- Acceder al botón de inicio
+const Iniciar = document.getElementById("Iniciar");
+
+const ctx = canvas.getContext("2d");
 
 //-- Definir el tamaño del canvas
 canvas.width = 1800;
 canvas.height = 500;
-
-const ctx1 = canvas.getContext("2d");
-const ctx2 = canvas.getContext("2d");
-const num1_disp = document.getElementById("num1_disp");
 
 const range = document.getElementById("range");
 const range1 = document.getElementById("range1")
 const range_disp = document.getElementById("range_disp");
 const range_disp2 = document.getElementById("range_disp2");
 
-function random(min, max) {
-    return x = Math.floor((Math.random() * (max - min + 1)) + min);
-}
-
-x = random(500,1700)
-
-ctx1.beginPath();
-    //-- Dibujar un circulo: coordenadas x,y del centro
-    //-- Radio, Angulo inicial y angulo final
-    ctx1.arc(x, 450, 29, 0, 2 * Math.PI);
-    ctx1.strokeStyle = 'black';
-    ctx1.lineWidth = 3;
-    ctx1.fillStyle = 'blue';
-
-    //-- Dibujar el trazo
-    ctx1.stroke()
-
-    //-- Dibujar el relleno
-    ctx1.fill()
-    
-ctx1.closePath()
-
-ctx2.beginPath();
-  //-- cuya esquina superior izquierda está en (5,5)
-  ctx2.rect(30,390, 100, 100);
-
-  //-- Color de relleno del rectángulo
-  ctx2.fillStyle = 'purple';
-
-  //-- Mostrar el relleno
-  ctx2.fill();
-
-  //-- Mostrar el trazo del rectángulo
-  ctx2.stroke();
-ctx2.closePath()
-
 range.oninput = () => {
-    range_disp.innerHTML = range.value;
+  range_disp.innerHTML = range.value;
+  angulo = range.value;
 }
 
 range1.oninput = () => {
   range_disp2.innerHTML = range1.value;
+  velp = 0.1 * range1.value;
 }
+
+function getRandomXO(min, max) {
+    return x = Math.floor((Math.random() * (max - min + 1)) + min);
+}
+
+//-- Coordenadas iniciales del proyectil
+let xop = 5;
+let yop = 445;
+let xp = xop;
+let yp = yop;
+
+//-- Coordenadas iniciales del objetivo
+let xomin = 200;
+let xomax = 770;
+let xo = getRandomXO(xomin,xomax);
+let yo = 470;
+
+//-- función para pintar el proyectil
+function dibujarP(x,y,lx,ly,color) {
+
+  //-- Pintando el proyectil
+  ctx.beginPath();
+
+  //-- Definir un rectángulo de dimensiones lx x ly,
+  ctx.rect(x, y, lx, ly);
+
+  //-- Color de relleno del rectángulo
+  ctx.fillStyle = color;
+
+  //-- Mostrar el relleno
+  ctx.fill();
+
+  //-- Mostrar el trazo del rectángulo
+  ctx.stroke();
+
+  ctx.closePath();
+}
+
+//-- función para pintar el objetivo
+function dibujarO(x,y) {
+
+  //-- Pintando el objetivo
+  ctx.beginPath();
+
+  //-- Dibujar un circulo: coordenadas x,y del centro
+  //-- Radio, Angulo inicial y angulo final
+  ctx.arc(x, y, 25, 0, 2 * Math.PI);
+  ctx.strokeStyle = 'black';
+  ctx.lineWidth = 2;
+  ctx.fillStyle = 'blue';
+
+  //-- Dibujar el relleno
+  ctx.fill()    
+
+  //-- Dibujar el trazo
+  ctx.stroke();
+
+  ctx.closePath();
+}
+
+//-- Dibujar el proyectil
+dibujarP(xop, yop, 50, 50, "purple"); // Pintar el proyectil
+
+//-- Dibujar el objetivo
+dibujarO(xo,yo); // Pintar el objetivo
+
+let t = 0;
+
+//-- Función principal de actualización
+function lanzar() {
+
+  //-- Implementación del algoritmo de animación:
+
+  //-- 1) Actualizar posición de los elementos
+  g = 0.1*9.8;
+  velx = velp*Math.cos((angulo*Math.PI)/180); //Velocidad eje x
+  vely = velp*Math.sin((angulo*Math.PI)/180); //Velocidad eje y
+
+  xp = xp + velx*t;
+  yp = yp - vely*t + 0.5*g*t*t;
+
+  t += 0.1;
+
+
+  //-- 2) Borrar el canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  //-- 3) Pintar los elementos en el canvas
+  dibujarP(xp, yp, 50, 50, "pink"); // Pintar el proyectil
+  dibujarO(xo,yo); // Pintar el objetivo
+
+  //-- 4) Repetir
+  requestAnimationFrame(lanzar);
+}
+
+//-- Función de retrollamada del botón de disparo
+Disparar.onclick = () => {
+  lanzar();
+}
+
+//-- Función de retrollamada del botón iniciar
+Iniciar.onclick = () => {
+
+  //Reinicio
+  location.reload();
+
+  // Pintar el proyectil
+  dibujarP(xop, yop, 50, 50,"purple"); 
+  
+}
+
