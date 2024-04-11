@@ -18,6 +18,7 @@ const range = document.getElementById("range");
 const range1 = document.getElementById("range1")
 const range_disp = document.getElementById("range_disp");
 const range_disp2 = document.getElementById("range_disp2");
+//const display = document.getElementById("display");
 
 range.oninput = () => {
   range_disp.innerHTML = range.value;
@@ -95,12 +96,10 @@ dibujarP(xop, yop, 50, 50, "purple"); // Pintar el proyectil
 dibujarO(xo,yo); // Pintar el objetivo
 
 let t = 0;
-
 //-- Función principal de actualización
 function lanzar() {
 
   //-- Implementación del algoritmo de animación:
-
   //-- 1) Actualizar posición de los elementos
   g = 0.1*9.8;
   velx = velp*Math.cos((angulo*Math.PI)/180); //Velocidad eje x
@@ -109,9 +108,14 @@ function lanzar() {
   xp = xp + velx*t;
   yp = yp - vely*t + 0.5*g*t*t;
 
+  //-- Detectar colisión con el borde inferior del lienzo
+  if (yp + 50 > canvas.height) { // El proyectil llega al borde inferior
+    vely *= -1; // Invertir la velocidad en el eje y para simular el rebote
+    yp = canvas.height - 50; // Ajustar la posición para que el proyectil no se escape del lienzo
+  }
+
   t += 0.1;
-
-
+  
   //-- 2) Borrar el canvas
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -121,10 +125,12 @@ function lanzar() {
 
   //-- 4) Repetir
   requestAnimationFrame(lanzar);
+
 }
 
 //-- Función de retrollamada del botón de disparo
 Disparar.onclick = () => {
+  crono.start();
   lanzar();
 }
 
@@ -135,7 +141,10 @@ Iniciar.onclick = () => {
   location.reload();
 
   // Pintar el proyectil
-  dibujarP(xop, yop, 50, 50,"purple"); 
+  dibujarP(xop, yop, 50, 50,"purple");
+  crono.reset(); 
   
 }
 
+
+const crono = new Crono(display);

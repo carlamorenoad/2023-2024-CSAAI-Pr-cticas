@@ -25,8 +25,8 @@ h2 {
     background-color: rgb(163, 204, 243);
     padding: 20px;
     border:solid rgb(2, 26, 247);
-    border-radius: 10px;
-    margin-right: 5px;
+    border-radius: 10px; 
+    margin-right:5px;
     margin-left: 5px;
     box-shadow: 10px 10px 10px rgb(4, 81, 196),
     -10px -10px 5px rgb(50, 16, 240) inset;
