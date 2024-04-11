@@ -2,7 +2,7 @@ console.log("Ejecutando JS...");
 
 const secretkey = []; //Array vacio para almacenar la clave
 
-function getRandomInt(max) { //Genera un numero entero aleatorio 
+function getRandomInt(max) { //Genera un numero entero aleatorio
 
   return Math.floor(Math.random() * max); 
 }
