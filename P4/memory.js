@@ -20,6 +20,7 @@ const state = {
 
 const generateGame = () => {
 
+    console.log('Generando juego...');
     let dimensions = selectors.dimensiones.value;
 
     //-- Nos aseguramos de que el número de dimensiones es par y se encuentra entre el 2 y el 6
@@ -60,7 +61,12 @@ const generateGame = () => {
 
     //-- Por último, vamos a inyectar el código html que hemos generado dentro de el contenedor
     // para el tablero de juego.
-    selectors.tablero.replaceWith(parser.querySelector('.tablero'))
+    const newTablero = parser.querySelector('.tablero');
+    selectors.tablero.replaceWith(newTablero);
+    selectors.tablero = newTablero; // Actualizamos la referencia al nuevo tablero
+
+    // Asignamos las funciones de callback para determinados eventos al nuevo tablero
+    attachEventListeners();
 }
 
 const pickRandom = (array, items) => {
@@ -115,15 +121,20 @@ const attachEventListeners = () => {
         // Pero si lo que ha pasado es un clic en el botón de comenzar lo que hacemos es
         // empezar el juego
         } else if (eventTarget.className === 'comenzar' && !eventTarget.className.includes('disabled')) {
-            startGame()
+            startGame();
         } else if (eventTarget.className === 'reiniciar' && !eventTarget.className.includes('disabled')){
-            resetGame()    
+            resetGame();
         }
-    })
+    });
 }
+// Agregar un evento de cambio al campo de entrada de dimensiones
+selectors.dimensiones.addEventListener('input', () => {
+    // Llamar a generateGame() cuando cambia el valor de dimensiones
+    generateGame();
+});
 
 // Generamos el juego
-generateGame()
+//generateGame()
 
 // Asignamos las funciones de callback para determinados eventos
 attachEventListeners()
@@ -155,9 +166,15 @@ const resetGame = () => {
     selectors.timer.textContent = " tiempo: 0 sec";
     selectors.movimientos.textContent = "0 movimientos";
 
-    generateGame()
+    // Damos la vuelta a todas las cartas boca arriba
+    document.querySelectorAll('.card.flipped').forEach(card => {
+        card.classList.remove('flipped');
+    });
 
+    // Generamos un nuevo juego
+    generateGame();
 }
+
 
 const flipCard = card => {
     // Sumamos uno al contador de cartas giradas
@@ -228,3 +245,16 @@ const flipBackCards = () => {
     // Ponemos el contado de parejas de cartas a cero
     state.flippedCards = 0
 }
+
+// Agregar un evento de cambio al campo de entrada de dimensiones
+selectors.dimensiones.addEventListener('input', () => {
+    // Llamar a generateGame() cuando cambia el valor de dimensiones
+    console.log('Valor de las dimensiones cambiado');
+    generateGame();
+})
+
+// Asignamos las funciones de callback para determinados eventos
+attachEventListeners();
+
+// Generar el juego directamente al cargar la página
+generateGame();
