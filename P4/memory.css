@@ -3,6 +3,10 @@
     font-family: Food;
     src: url(./Foodpacker.otf);
 }
+@font-face {
+    font-family: Pacifico;
+    src: url(./Pacifico-Regular.ttf);
+}
 body {
     background-image: url('fondomemory.jpg');
     background-repeat: no-repeat;
@@ -148,8 +152,9 @@ button {
     transform: translate(-50%, -50%);
     font-size: 21pt;
     color: #282A3A;
+    font-family: Pacifico;
 }
 
 .highlight {
-    color: #6f00fc;
+    color: #fc0000;
 }

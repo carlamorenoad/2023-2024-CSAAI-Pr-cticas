@@ -162,6 +162,8 @@ const resetGame = () => {
     state.totalFlips = 0;
     state.totalTime = 0;
     clearInterval(state.loop);
+    selectors.gridContainer.classList.remove('flipped');
+    selectors.comenzar.classList.remove('disabled');
 
     selectors.timer.textContent = " tiempo: 0 sec";
     selectors.movimientos.textContent = "0 movimientos";
