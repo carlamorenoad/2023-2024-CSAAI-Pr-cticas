@@ -12,6 +12,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
 }
 
 h1 {
@@ -169,7 +170,7 @@ button {
     color: #fc0000;
 }
 
-@media screen and (max-with: 600px) {
+@media screen and (max-width: 600px) {
     .game {
         max-width: 100%;
         padding: 0 1em;
