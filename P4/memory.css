@@ -11,7 +11,6 @@ body {
     background-image: url('fondomemory.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    box-sizing: border-box;
 }
 html {
     width: 100%;
@@ -42,8 +41,13 @@ h1 {
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    width: 100%;
 }
+
+/*.controles {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}*/
 
 button {
     background: #282A3A;
@@ -69,16 +73,6 @@ button {
 
 .grid-container {
     position: relative;
-    display: grid;
-    align-items: center;
-    justify-content: center;
-    grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
-    grid-gap:20px;
-    padding: 20px;
-    max-width: 900px;
-    height: auto;
-    margin: 0 auto;
-
 }
 
 .tablero,
@@ -110,9 +104,6 @@ button {
     width: 100px;
     height: 100px;
     cursor: pointer;
-    padding: 40px;
-    transition: transform 0.3s ease;
-
 }
 
 .card-front,
@@ -166,38 +157,4 @@ button {
 
 .highlight {
     color: #fc0000;
-}
-
-
-@media screen and (max-width: 868px) {
-    .grid-container {
-        grid-template-columns:
-        repeat(auto-fit, minmax(50px, 1fr));
-    }
-
-    .card {
-        padding: 20px;
-    }
-}
-
-@media screen and (max-width: 700px) {
-    .grid-container {
-        grid-template-columns: 
-        repeat(auto-fit, minmax(40px, 1fr));
-    }
-
-    .card {
-        padding: 10px;
-    }
-}
-
-@media screen and (max-width: 300px) {
-    .grid-container {
-        grid-template-columns: 
-        repeat(auto-fit, minmax(10px, 1fr));
-    }
-
-    .card {
-        padding: 5px;
-    }
 }
