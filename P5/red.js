@@ -32,7 +32,55 @@ class Nodo {
   conectar(nodo, peso) {
     this.conexiones.push({ nodo, peso });
   }
+  // Método para saber si un nodo está en la lista de conexiones de otro
+  isconnected(idn) {
 
+    let isconnected = false;
+
+    this.conexiones.forEach(({ nodo: conexion, peso }) => {      
+      if (idn == conexion.id) {
+        //console.log("id nodo conectado:" + conexion.id);
+        isconnected = true;
+      }      
+    });
+    
+    return isconnected;
+  }
+
+ // Método para saber la distancia entre dos nodos
+ node_distance(nx, ny) {
+    var a = nx - this.x;
+    var b = ny - this.y;
+            
+    return Math.floor(Math.sqrt( a*a + b*b ));
+    
+    }
+
+ // Método para encontrar el nodo más cercano
+ close_node( nodos ) {
+
+    let far_node = this.far_node( nodos );
+    let cnode = far_node.id;
+    let distn = far_node.distance;
+    let distaux = 0;
+    let pos = 0;
+    let npos = 0;    
+  
+    for (let nodo of nodos) {
+      distaux = this.node_distance(nodo.x, nodo.y);
+  
+      if (distaux != 0 && distaux <= distn) {
+        distn = distaux;
+        cnode = nodo.id;
+        npos = pos;
+      }
+
+      pos += 1;
+    }
+  
+    return {pos:npos, id: cnode, distance: distn,}
+  
+  }
 }
   
 // Función para generar una red aleatoria con nodos en diferentes estados de congestión
@@ -41,11 +89,45 @@ function crearRedAleatoriaConCongestion(numNodos, numConexiones) {
   const nodos = [];
   let x = 0, y = 0, delay = 0;
   let nodoActual = 0, nodoAleatorio = 0, pickNode = 0, peso = 0;
+  let bSpace = false;
 
-  // Generamos los nodos
-  for (let i = 0; i < numNodos; i++) {
-    x = randomNumber(nodeRadius, (canvas.width - nodeRadius)); // Generar coordenada x aleatoria
-    y = randomNumber(nodeRadius, (canvas.height - nodeRadius)); // Generar coordenada y aleatoria
+  const xs = Math.floor(canvas.width / numNodos);
+  const ys = Math.floor(canvas.height / 2 );
+  const xr = canvas.width - nodeRadius;
+  const yr = canvas.height - nodeRadius;
+  let xp = nodeRadius;
+  let yp = nodeRadius;
+  let xsa = xs;
+  let ysa = ys;
+
+// Generamos los nodos
+for (let i = 0; i < numNodos; i++) {
+
+    //var random_boolean = Math.random() < 0.5;
+    if (Math.random() < 0.5) {
+      yp = nodeRadius;
+      ysa = ys;
+    } 
+    else {
+      yp = ys;
+      ysa = yr;
+    }
+
+    x = randomNumber(xp, xsa); // Generar coordenada x aleatoria
+    y = randomNumber(yp, ysa); // Generar coordenada y aleatoria
+
+    xp = xsa;
+    xsa = xsa + xs;
+
+    if ( xsa > xr && xsa <= canvas.width ) {
+      xsa = xr;
+    }
+
+    if ( xsa > xr && xsa < canvas.width ) {
+      xp = nodeRadius;
+      xsa = xs;
+    }    
+
     delay = generarRetardo(); // Retardo aleatorio para simular congestión
     nodos.push(new Nodo(i, x, y, delay)); // Generar un nuevo nodo y añadirlo a la lista de nodos de la red
   }
@@ -77,32 +159,41 @@ function randomNumber(min, max) {
 
 // Dibujar la red en el canvas
 function drawNet(nnodes) {
-  // Dibujamos las conexiones entre nodos
-  nnodes.forEach(nodo => {
-    nodo.conexiones.forEach(({ nodo: conexion, peso }) => {
-      ctx.beginPath();
-      ctx.moveTo(nodo.x, nodo.y);
-      ctx.lineTo(conexion.x, conexion.y);
-      ctx.stroke();
+    // Dibujamos las conexiones entre nodos
+    nnodes.forEach(nodo => {
+      nodo.conexiones.forEach(({ nodo: conexion, peso }) => {
+        ctx.beginPath();
+        ctx.moveTo(nodo.x, nodo.y);
+        ctx.lineTo(conexion.x, conexion.y);
+        ctx.stroke();
+  
+        ctx.font = '12px Arial';
+        ctx.fillStyle = 'black';
+        ctx.textAlign = 'center';
+        pw = "N" + nodo.id + " pw " + peso;
+        const midX = Math.floor((nodo.x + conexion.x)/2);
+        const midY = Math.floor((nodo.y + conexion.y)/2);
+        ctx.fillText(pw, midX, midY);  
+  
+      });
     });
-  });
-
-  let nodoDesc; // Descripción del nodo
-
-  // Dibujamos los nodos
-  nnodes.forEach(nodo => {
-    ctx.beginPath();
-    ctx.arc(nodo.x, nodo.y, nodeRadius, 0, 2 * Math.PI);
-    ctx.fillStyle = 'blue';
-    ctx.fill();
-    ctx.stroke();
-    ctx.font = '12px Arial';
-    ctx.fillStyle = 'white';
-    ctx.textAlign = 'center';
-    nodoDesc = "N" + nodo.id + " delay " + Math.floor(nodo.delay);
-    ctx.fillText(nodoDesc, nodo.x, nodo.y + 5);
-  });
-}
+  
+    let nodoDesc; // Descripción del nodo
+  
+    // Dibujamos los nodos
+    nnodes.forEach(nodo => {
+      ctx.beginPath();
+      ctx.arc(nodo.x, nodo.y, nodeRadius, 0, 2 * Math.PI);
+      ctx.fillStyle = 'blue';
+      ctx.fill();
+      ctx.stroke();
+      ctx.font = '12px Arial';
+      ctx.fillStyle = 'white';
+      ctx.textAlign = 'center';
+      nodoDesc = "N" + nodo.id + " delay " + Math.floor(nodo.delay);
+      ctx.fillText(nodoDesc, nodo.x, nodo.y + 5);
+    });
+  }
 
 // Función de calback para generar la red de manera aleatoria
 btnCNet.onclick = () => {
