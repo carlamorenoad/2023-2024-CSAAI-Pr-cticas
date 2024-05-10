@@ -54,8 +54,33 @@ class Nodo {
             
     return Math.floor(Math.sqrt( a*a + b*b ));
     
-    }
+  }
 
+  // Método para encontrar el nodo más alejado
+  far_node( nodos ) {
+
+    let distn = 0;
+    let cnode = this.id;
+    let distaux = 0;
+    let pos = 0;
+    let npos = 0;
+
+    for (let nodo of nodos) {
+      distaux = this.node_distance(nodo.x, nodo.y);
+  
+      if (distaux != 0 && distaux > distn) {
+        distn = distaux;
+        cnode = nodo.id;
+        npos = pos;
+      }
+
+      pos += 1;
+    }
+  
+    return {pos: npos, id: cnode, distance: distn,};
+
+  }
+  
  // Método para encontrar el nodo más cercano
  close_node( nodos ) {
 
@@ -119,6 +144,7 @@ for (let i = 0; i < numNodos; i++) {
     xp = xsa;
     xsa = xsa + xs;
 
+    //Condiciones para detectar el borde 
     if ( xsa > xr && xsa <= canvas.width ) {
       xsa = xr;
     }
@@ -133,15 +159,31 @@ for (let i = 0; i < numNodos; i++) {
   }
 
   // Conectamos los nodos
-  for (let i = 0; i < numNodos; i++) {
-    nodoActual = nodos[i];
+  // Seleccionamos los nodos más cercanos teniendo en cuenta la distancia
+  // Seleccionamos tantos nodos como indica la variable numConexiones
+  // El nodo será candidato siempre que no estén ya conectados
+  for (let nodo of nodos) {
+    //console.log("id: " + nodo.id + " distancia al nodo: " + nodo.node_distance(nodos[0].x, nodos[0].y));
+ 
+    const clonedArray = [...nodos];
+ 
     for (let j = 0; j < numConexiones; j++) {
-      pickNode = Math.floor(Math.random() * numNodos);
-      nodoAleatorio = nodos[pickNode];
-      //peso = Math.random() * pipeRandomWeight; // Peso aleatorio para simular la distancia entre nodos
-      peso = pipeRandomWeight; // El mismo peso para todas las conexiones
-      nodoActual.conectar(nodoAleatorio, peso);
+      let close_node = nodo.close_node(clonedArray);
+      //console.log(close_node);
+ 
+      if (!nodo.isconnected(close_node.id) && !clonedArray[close_node.pos].isconnected(nodo.id)) {
+        // Añadimos una nueva conexión
+        // Con el nodo más cercano y la distancia a ese nodo como el peso de la conexión
+        nodo.conectar(clonedArray[close_node.pos], close_node.distance);
+      }
+ 
+      // Eliminamos el nodo seleccionado del array clonado para evitar que 
+      // vuelva a salir elegido con splice.
+      // 0 - Inserta en la posición que le indicamos.
+      // 1 - Remplaza el elemento, y como no le damos un nuevo elemento se queda vacío.      
+      clonedArray.splice(close_node.pos, 1);
     }
+ 
   }
 
   return nodos;
@@ -210,14 +252,39 @@ btnCNet.onclick = () => {
 
 }
 
+
 btnMinPath.onclick = () => {
 
     // Supongamos que tienes una red de nodos llamada redAleatoria y tienes nodos origen y destino
     nodoOrigen = redAleatoria[0]; // Nodo de origen
     nodoDestino = redAleatoria[numNodos - 1]; // Nodo de destino
   
-    // Calcular la ruta mínima entre el nodo origen y el nodo destino utilizando Dijkstra con retrasos
     rutaMinimaConRetardos = dijkstraConRetardos(redAleatoria, nodoOrigen, nodoDestino);
     console.log("Ruta mínima con retrasos:", rutaMinimaConRetardos);
-  
+
+    rutaMinimaConRetardos.forEach(nodo => {
+      const nodoCanvas = redAleatoria.find(n => n.id === nodo.id);
+      if (nodoCanvas) {
+          ctx.beginPath();
+          ctx.arc(nodoCanvas.x, nodoCanvas.y, nodeRadius, 0, 2 * Math.PI);
+          ctx.fillStyle = 'green';
+          ctx.fill();
+          ctx.stroke();
+          ctx.font = '12px Arial';
+          ctx.fillStyle = 'white';
+          ctx.textAlign = 'center';
+          nodoDesc = "N" + nodo.id + " delay " + Math.floor(nodo.delay);
+          ctx.fillText(nodoDesc, nodo.x, nodo.y + 5);
+      }
+  });
+
+  let tiempoTotal = 0;
+  rutaMinimaConRetardos.forEach(nodo => {
+      tiempoTotal += nodo.delay;
+  });
+
+  const displayTiempoTotal = document.querySelector('.total.time');
+  if (displayTiempoTotal) {
+      displayTiempoTotal.textContent = `tiempo total: ${tiempoTotal} sec`;
   }
+}

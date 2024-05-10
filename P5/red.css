@@ -18,3 +18,12 @@ canvas {
     font-family: Fredoka;
     font-size: 18pt;
   }
+
+  .net{
+    display:block;
+    float:left;
+  }
+
+  .display{
+    padding: 10px;
+  }
